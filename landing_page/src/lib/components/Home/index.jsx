@@ -1,20 +1,18 @@
 import React from 'react'
-import axios from 'axios'
-import access_token from '../../access_token/access.json'
-import { useQuery } from 'react-query'
+import InstaFeed from './InstaFeed'
+import Hero from './Hero'
+import Intro from './Intro'
+import { Stack } from '@chakra-ui/react';
 
-const BASE_URL = "https://graph.instagram.com"
+
 
 export default function Home() {
 
-    const instaFeed = useQuery(["instafeed", access_token.user_id], async() => {
-        const res = await axios.get(BASE_URL + `/me/media?fields=media_url,caption,username&access_token=${access_token.access_token}`);
-        console.log(res.data)
-        return res.data;
-    })
-
     return (
-        <div>
-        </div>
+        <Stack spacing={20} bg={'gray.900'} textColor={'white'}>
+            <Hero/>
+            <Intro/>
+            <InstaFeed/>
+        </Stack>
     )
 }
