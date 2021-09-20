@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   Stack,
+  HStack,
   FormControl,
   Input,
   Button,
@@ -9,6 +10,8 @@ import {
   Text,
   Container,
   Flex,
+  Textarea,
+  Center
 } from '@chakra-ui/react';
 import { FaCheck } from 'react-icons/fa';
 
@@ -38,10 +41,9 @@ export default function Simple() {
           fontSize={{ base: 'xl', sm: '2xl' }}
           textAlign={'center'}
           mb={5}>
-          Subscribe to our Newsletter
+          Send me a message
         </Heading>
         <Stack
-          direction={{ base: 'column', md: 'row' }}
           as={'form'}
           spacing={'12px'}
           onSubmit={e => {
@@ -61,35 +63,39 @@ export default function Simple() {
             }, 1000);
           }}>
           <FormControl>
-            <Input
-              variant={'solid'}
-              borderWidth={1}
-              color={'gray.800'}
-              _placeholder={{
-                color: 'gray.400',
-              }}
-              borderColor={useColorModeValue('gray.300', 'gray.700')}
-              id={'email'}
-              type={'email'}
-              required
-              placeholder={'Your Email'}
-              aria-label={'Your Email'}
-              value={email}
-              disabled={state !== 'initial'}
-              onChange={e =>
-                setEmail(e.target.value)
-              }
-            />
+            <Stack>
+                <HStack>
+                    <Input type="text" id={'name'} placeholder={'Name'}></Input>
+                    <Input type="text" id={'last_name'} placeholder={'Last Name'}></Input>
+                </HStack>
+                <Input
+                variant={'solid'}
+                borderWidth={1}
+                id={'email'}
+                type={'email'}
+                required
+                placeholder={'Your Email'}
+                aria-label={'Your Email'}
+                value={email}
+                disabled={state !== 'initial'}
+                onChange={e =>
+                    setEmail(e.target.value)
+                }
+                />
+                <Textarea id={'message'} placeholder={'Message'}></Textarea>
+            </Stack>
           </FormControl>
-          <FormControl w={{ base: '100%', md: '40%' }}>
-            <Button
-              colorScheme={state === 'success' ? 'green' : 'blue'}
-              isLoading={state === 'submitting'}
-              w="100%"
-              type={state === 'success' ? 'button' : 'submit'}>
-              {state === 'success' ? <FaCheck /> : 'Submit'}
-            </Button>
-          </FormControl>
+          <Center>
+            <FormControl w={{ base: '100%', md: '40%' }}>
+                <Button
+                colorScheme={state === 'success' ? 'green' : 'blue'}
+                isLoading={state === 'submitting'}
+                w="100%"
+                type={state === 'success' ? 'button' : 'submit'}>
+                {state === 'success' ? <FaCheck /> : 'Submit'}
+                </Button>
+            </FormControl>
+          </Center>
         </Stack>
         <Text
           mt={2}

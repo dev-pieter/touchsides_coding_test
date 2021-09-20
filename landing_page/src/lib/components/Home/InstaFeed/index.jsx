@@ -9,15 +9,16 @@ const URL = `https://graph.instagram.com/me/media?fields=media_type,media_url&ac
 export default function InstaFeed() {
     const instaFeed = useQuery(["instafeed"], async() => {
         const res = await axios.get(URL);
-        console.log(res.data)
         return res.data;
+    }, {
+        staleTime: 500000
     })
 
     return (
         <Center>
             <Stack spacing={6} textAlign='center' mb='50px'>
-                <Heading>My Life</Heading>
-                <SimpleGrid columns={4} spacing={5}>
+                <Heading>{'<My Life/>'}</Heading>
+                <SimpleGrid columns={[1,null,3]} spacing={5}>
                     {instaFeed.isLoading ? null :
                         instaFeed.data.data.map((x, idx)=> (
                             <Box width="300px" height="300px" overflow='hidden'>
